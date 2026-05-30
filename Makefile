@@ -1,10 +1,10 @@
 MODE = None
-NAME = vXXX
+NAME = v52
 all:
-ifneq ($(NAME), vXXX)
-	@(find . -type f -name "*" -print0 | xargs -0 sed -i'' -e "s/vXXX/$(NAME)/g")
-	@(mv vXXX/vXXX.tex vXXX/$(NAME).tex)
-	@(mv vXXX $(NAME))
+ifneq ($(NAME), v52)
+	@(find . -type f -name "*" -print0 | xargs -0 sed -i'' -e "s/v52/$(NAME)/g")
+	@(mv v52/v52.tex v52/$(NAME).tex)
+	@(mv v52 $(NAME))
 endif
 	$(MAKE) -C $(NAME) MODE=$(MODE)
 	cp $(NAME)/build/tex/$(NAME).pdf $(NAME)_rosenbaum_hikade.pdf
