@@ -5,7 +5,7 @@ Betrachtet wird in diesem Versuch das Verhalten elektrischer Signale auf Leitern
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{content/pics/schaltung.png}
-    \caption{Verlustfreie und verlustbehaftete Schaltung.}
+    \caption{Verlustfreie und verlustbehaftete Schaltung.\cite{Durchfuhrung}}
     \label{fig:Schaltung}
 \end{figure}
 Zunächst werden die Leitungskonstanten $R, L, C$ und $G$ definiert. Hierbei ist $R$ der Widerstand pro Längeneinheit, $L$ die Induktivität pro Längeneinheit, $C$ die Kapazität pro Längeneinheit und $G$ die Leitfähigkeit pro Längeneinheit.
@@ -14,7 +14,7 @@ Hierbei wird als Leitung ein Koaxialkabel betrachtet. Dieses besteht aus zwei zy
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.4\textwidth]{content/pics/tabelle.png}
-    \caption{Formeln zur Bestimmung der Parameter der Leitungsbeläge.}
+    \caption{Formeln zur Bestimmung der Parameter der Leitungsbeläge.\cite{Durchfuhrung}}
     \label{fig:tabelle}
 \end{figure}
 $R_s = \sqrt{\frac{\pi \nu \mu_c}{\sigma_c}}$ ist hierbei eine Konstante, $d$ und $D$ sind Innen- bzw Außenradius des Kabels, $\sigma$ ist die elektrische Leitfähigkeit, $\mu$ ist die magnetische Permeabilität und $\epsilon$ die Dielektrizitätskonstante.  
@@ -33,8 +33,7 @@ Dabei ist $\alpha$ definiert durch:
 \begin{equation}
     \alpha = \frac{1}{z} \ln\left(\frac{U_0}{U(z)}\right)
 \end{equation}
-Für die Geschwindikeit der Signale gilt $v = \frac{c_0}{\sqrt{\epsilon_r}}$, da sich die elektromagnetischen Wellen mit Lichtgeschwindigkeit ausbreiten, hierbei ist $c_0$ die Lichtgeschwindigkeit und $\epsilon_r$ die relative Dielektrizitätskonstante.
-Diese 
+Für die Geschwindikeit der Signale gilt $v = \frac{c_0}{\sqrt{\epsilon_r}}$, da sich die elektromagnetischen Wellen mit Lichtgeschwindigkeit ausbreiten, hierbei ist $c_0$ die Lichtgeschwindigkeit und $\epsilon_r$ die relative Dielektrizitätskonstante. 
 Eine verlustbehaftete Leitung führt zur Verzerrung des Signals.
 Der Wellenwiderstand $Z_0$ einer Leitung wird durch 
 \begin{equation*}
@@ -52,7 +51,7 @@ Mit folgender Schaltung
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{content/pics/abschluss.png}
-    \caption{Schaltung einer Leitung mit einem Funktionsgenerator und einem Abschlusswiderstand.}
+    \caption{Schaltung einer Leitung mit einem Funktionsgenerator und einem Abschlusswiderstand.\cite{Durchfuhrung}}
     \label{fig:Leitung}
 \end{figure}
 kann das Verhalten elektrischer Signale auf Leitern untersucht werden. Hierbei wird ein Signal von einem Funktionsgenerator eingespeist und die Spannung am Ende der Leitung mit einem Oszilloskop gemessen. Je nach Abschlusswiderstand $Z_L$ kann es zu Reflexionen kommen, welche durch den Reflexionsfaktor $\Gamma$ beschrieben werden. Dieser wird durch
@@ -60,12 +59,36 @@ kann das Verhalten elektrischer Signale auf Leitern untersucht werden. Hierbei w
 \Gamma = \frac{U_{r}}{U_{0}} = \frac{Z_{L} - Z_{0}}{Z_{L} + Z_{0}} = |\Gamma| e^{i\varphi_{\Gamma}}
 \end{equation*}
 beschrieben. Hierbei ist $U_r$ die reflektierte Spannung, $U_0$ die eingehende Spannung, $Z_L$ der Abschlusswiderstand und $Z_0$ der Wellenwiderstand der Leitung. 
+Des Weiteren ist zu beachten, dass es bei hohen Frequenzen $\omega \leq \qty{100}{\kilo\hertz}$ zu dem sogenanntem Skin-Effekt kommt, welcher beschreibt, dass die im Inneren des Leiters aufgebauten B-Felder periodisch ihre Richtung ändern, dadurch Wirbelströme erzeugen, welche den Wechselstrom im Leiterinneren zur Leiteroberfläche drückt.
 In der folgenden Abilldung werden beispielsweise die Signalverläufe für verschiedene Abschlusswiderstände dargestellt.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{content/pics/verschiedenabschluss.png}
-    \caption{Signalverläufe für einen Kondensator(links) und eine Spule(rechts) als Abschlusswiderstand.}
+    \caption{Signalverläufe für einen Kondensator(links) und eine Spule(rechts) als Abschlusswiderstand.\cite{Durchfuhrung}}
     \label{fig:Abschlussverlaeufe}
 \end{figure}
+
+Der räuumliche Verlauf von der reflektierten Welle $U_r(z,t)$ ist darstellbar durch die Laplace-Transformation der einlaufenden Welle $U_h(p)$ und des Reflexionskoeffizienten $\Sigma(p)$ in Impulsebene mit 
+\begin{equation*}
+U_{r}(t) = \mathcal{L}^{-1}\{U_{r}(p)\} = \mathcal{L}^{-1}\{\Gamma(p) \cdot U_{h}(p)\}.
+\end{equation*}
+
+Mithilfe eines Impulsfahrplans können Spannugnsänderungen den Störstellen zugeordnet werden. Ein beispielhafter Impulsfahrplan wird in folgender Abbildung dargestellt.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.3\textwidth]{content/pics/Impulsfahrplan.png}
+    \caption{Beispielhafter Verlauf eines Impulsfahrplans.\cite{Durchfuhrung}}
+    \label{fig:Impulsfahrplan}
+\end{figure}
+Hierbei startet bei $t=0$ der Impuls mit Amplitude $U_0$, dieser wird dann am Kabelende bei $t=T$ reflektiert und die neue Welle läuft mit Impuls $\Gamma_L U_0$ weiter, das geht solange weiter, bis die Grenzamplitude $U_e$ erreicht wurde. 
+In der folgenden Abbildung ist zu sehen, wie der zeitliche Verlauf einer überlagerten Signalspannung am Oszilloskop aussieht.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{content/pics/Überlagerung.png}
+    \caption{Zeitlicher Verlauf der Signalspannung an einem Punkt $z$ am Oszilloskop.\cite{Durchfuhrung}}
+    \label{fig:Ueberlagerung}
+\end{figure}
+Hierbei sind die aus dem vorherigen Impulsfahrplan eingehenden Impulse mit deren jeweiligen Reflexionskoeffizienten zu sehen.
+
 
 \clearpage
