@@ -75,9 +75,9 @@ print(e_l, e_m, e_ml)
 
 write("Alphas und epsilons:\n\n")
 add(f"Für L = 20m (langes Kabel):\n")
-add(f"alpha = {alpha_lang:.4f} 1/m,\tepsilon = {e_l:.2f}\n")
+add(f"alpha = {alpha_lang:.6f} 1/m,\tepsilon = {e_l:.2f}\n")
 add(f"Für L = 1.5m (mittleres Kabel):\n")
-add(f"alpha = {alpha_mittel:.4f} 1/m,\tepsilon = {e_m:.2f}\n")
+add(f"alpha = {alpha_mittel:.6f} 1/m,\tepsilon = {e_m:.2f}\n")
 add(f"Für L = 5m (mittellanges Kabel):\n")
 add(f"alpha = {alpha_mittellang:.4f} 1/m,\tepsilon = {e_ml:.2f}\n")
 
@@ -94,9 +94,10 @@ m = ufloat(result.slope, result.stderr)
 b = ufloat(result.intercept, result.intercept_stderr)
 
 #L(t) = m * t AND L(dt) = v_ph/2 * dt => v_ph = 2m
-v_ph = 2*m
+v_ph = 2*m*1e9
 L_lang_theo = m * dt_lang
 ee_l = (const.c * dt_lang*1e-9 / (2*L_lang_theo))**2
+# ee_l = (const.c / v_ph)**2
 
 # new arrays
 # L_arr[0] = L_lang_theo

@@ -14,12 +14,160 @@ durchgeführt, sowie den Formeln
 für den Mittelwert und 
 \begin{equation}
     \sigma_{\overline{x}} = \frac{\sigma_x}{\sqrt{n}} = \sqrt{\frac{1}{n(n-1)}  \sum^n_{i=1} \left( x_i - \overline{x}\right)^2 } .
-    \label{eq:abweichung}
+    \label{eq:standardabweichung}
 \end{equation}
 für die Standardabweichung einer Messreihe $\left( x_1, ... , x_n  \right)$.
 Der Einfachheit halber wird hierbei das Python-Paket \textit{uncertainties} verwendet. \cite{uncertainties} \\
 \hspace{1cm}
 % Ende Fehlerrechnung
+
+
+\subsection{Frequenzabhängigkeit der Leitunsgskonstanten}
+
+Die gemessenen Werte für den Leitungswiderstand $R$, die Induktivität $L$, die Kapazität $C$, die Impedanz $Z$ und die Phasenverschiebung $\varphi$ sind in Tabelle \autoref{tab:RCL} aufgelstet. 
+
+\include{content/tables/RCL.tex}
+
+Mithilfe der aus \autoref{fig:formel_tabelle} bekannten Formel für den Querleitwertbelag $G$ für ein Koaxialkabel, kann dieser in Abhängigkeit der Frequenz errechnet werden. Für das verwendete Koaxialkabel gelten die Werte~\cite{Durchfuhrung}
+\begin{align*}
+    d &= \qty{0.9}{\milli\meter} \\
+    D &= \qty{2.95}{\milli\meter} \\
+    \epsilon_r &= 2.25 \, .
+\end{align*}
+
+Damit können $R, L, C$ und $G$ in Abhängigkeit der Frequenz dargestellt werden. Diese Darstellungen sind in \autoref{fig:RCLG} zu sehen.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{content/plots/RCL.pdf}
+    \caption{$R, L, C$ und $G$ in Abhängigkeit der Frequenz $\omega$.~\cite{matplotlib}}
+    \label{fig:RCLG}
+\end{figure}
+
+\subsection{Dämpfungs- und Dielektrizitätskonstanten}
+
+Für die drei verschiedenen Koaxialkabel mit offenem Ende werden anhand der in \autoref{fig:3kabel_oszi} zu sehenden Oszillogramme des Signalverlaufs die Eingangs- und Reflexionspeaks bestimmt. Außerdem wird die Zeitdifferenz $\Delta t$ zwischen den Peaks vom Oszilloskop abgelesen. \\
+Zusätzlich werden für Kabel 1 und Kabel 2 mithilfe eines Zollstocks die Längen $L$ gemessen. Für Kabel 3 wird die Länge als $L \approx \qty{20}{\meter}$ abgeschätzt, da es sich um ein sehr langes Kabel handelt. Die Gültigkeit dieser Abschätzung wird später überprüft. \\
+
+\begin{figure}[htbp]
+    \centering
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{content/pics/oszi/MittleresKabel.jpg}
+        \caption{Kabel 1.}
+        \label{fig:kabel1}
+    \end{subfigure}%
+    \hfill
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{content/pics/oszi/MittellangesKabel.jpg}
+        \caption{Kabel 2.}
+        \label{fig:kabel2}
+    \end{subfigure}%
+    \hfill
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{content/pics/oszi/LangesKabel.jpg}
+        \caption{Kabel 3.}
+        \label{fig:kabel3}
+    \end{subfigure}
+    \caption{Oszillogramme der drei Koaxialkabel. Die Eingangs- und Reflexionspeaks sowie die Zeitdifferenz $\Delta t$ sind zu erkennen.}
+    \label{fig:3kabel_oszi}
+\end{figure}
+
+Die gemessenen Werte für die drei Kabel sind in \autoref{tab:3kabel} aufgelistet.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lccccc}
+    \toprule
+    Kabel & $A_0$ [V] & $A_1$ [V] & Zero-Level [V] & $\Delta t$ [ns] & $L$ [m] \\
+    \midrule
+    Kabel 1 & -3.2 & -3.52 & -20.2 & 15.6 & 1.5 \pm 0.1 \\
+    Kabel 2 & -2.8 & -4.6  & -20.2 & 51.2 & 5.0 \pm 0.5 \\
+    Kabel 3 & -2.8 & -15.6 & -19.2 & 856  & 20.0 \\
+    \bottomrule
+\end{tabular}
+\caption{Messwerte für die drei Koaxialkabel. $A_0$ und $A_1$ sind die Spannungen der Eingangs- und Reflexionspeaks, gemessen im Vergleich zum Untergrund-Level (Zero-Level), $\Delta t$ ist die Zeitdifferenz zwischen den Peaks und $L$ ist die Länge des Kabels.}
+\label{tab:3kabel}
+\end{table}
+
+Anhand der gemessenen Werte können nun die Dämpfungskonstanten $\alpha$ für die jeweiligen Kabel berechnet werden. Dazu wird die Formel \eqref{eq:alpha} verwendet, indem $z=2L$, aufgrund der Hin- nud Rücklaufzeit des Signals, eingesetzt wird. 
+$U_0$ und $U(z=2L) := U_1$ werden aus den gemessenen Spannungen als Differenz zum Zero-Level bestimmt, also $U_0 = A_0 - \text{Zero-Level}$ und $U_1 = A_1 - \text{Zero-Level}$. \\
+Die umgestellte Formel für $\alpha$ lautet dann 
+\begin{equation}
+    \alpha = \frac{1}{2L} \ln\left(\frac{U_0}{U_1}\right) .
+\end{equation}
+Die berechneten Werte für $\alpha$ sind in \autoref{tab:alpha} aufgelistet.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{lccccc}
+    \toprule
+    Kabel & $\alpha$ [1/m] \\
+    \midrule
+    Kabel 1 & \qty{0.00633(0.00004)}{} \\
+    Kabel 2 & \qty{0.0109(0.0001)}{}\\
+    Kabel 3 & \qty{0.03791(0.0002)}{} \\
+    \bottomrule
+\end{tabular}
+\caption{Berechnete Dämpfungskonstanten für die drei Koaxialkabel.}
+\label{tab:alpha}
+\end{table}
+
+\vspace{5cm}
+Um nun die Dielektrizitätskonstanten $\epsilon_r$ zu bestimmen wird der bekannte Zusammenhang zwischen der Phasengeschwindigkeit $v_\T{ph}$ und der relativen Dielektrizitätskonstante $\epsilon_r$ verwendet, und nach Länge $L$ und Laufzeit $\Delta t$ umgestellt. Es gilt dann
+\begin{align}
+    \epsilon_r &= \left( \frac{c}{v_\T{ph}} \right)^2 = \left ( \frac{c \Delta t}{2L} \right)^2 \, ,
+\end{align}
+wobei $c$ die Lichtgeschwindigkeit im Vakuum ist. Die berechneten Werte für $\epsilon_r$ sind in \autoref{tab:epsilon} aufgelistet.
+\begin{table}[h!]
+\centering
+\begin{tabular}{lccccc}
+    \toprule
+    Kabel & $\epsilon_r$ \\
+    \midrule
+    Kabel 1 & \qty{2.43(0.03)}{} \\
+    Kabel 2 & \qty{2.36(0.05)}{} \\
+    Kabel 3 & \qty{41.16(0.04)}{} \\
+    \bottomrule
+\end{tabular}
+\caption{Berechnete relative Dielektrizitätskonstanten für die drei Koaxialkabel.}
+\label{tab:epsilon}
+\end{table}
+
+\subsubsection{Gültigkeit der Abschätzung der Länge von Kabel 3}
+
+Es ist zu erkennen, dass die berechnete Dielektrizitätskonstante für Kabel 3 mit einem Wert von $\epsilon_r \approx 41$ deutlich höher liegt als die Werte für Kabel 1 und Kabel 2, die in einem realistischen Bereich von $\epsilon_r \approx 2.4$ liegen. Dies deutet darauf hin, dass die Abschätzung der Länge von Kabel 3 als $L \approx \qty{20}{\meter}$ nicht korrekt ist. \\
+Da auch in den meisten handelsüblichen Koaxialkabeln die Dielektrizitätskonstante im Bereich von $\epsilon_r \approx 2$ bis $\epsilon_r \approx 3$ liegt (ohne Quelle), liegt es Nahe, dass die tatsächliche Länge von Kabel 3 deutlich größer als die abgeschätzten $20$ Meter ist. 
+
+Um also die tatsächliche Länge von Kabel 3 zu bestimmen, kann anhand der Messwerte für Kabel 1 und 2 ein Mittelwert für die Phasengeschwindigkeit $v_\T{ph}$, hier mithilfe der Funktion \textit{scipy.stats.linregress}~\cite{scipy}, berechnet werden.\\
+Die Lineare Regression liefert die Koeffizienten 
+\begin{align}
+    m &= \frac{v_\T{ph}}{2} = \qty{0.0983}{\meter\per\nano\second} \\
+    b &= \qty{-0.0337}{\meter}
+\end{align}
+für die Steigung $m$ und y-Achsenabschnitt $b$. \\
+Die daraus errechneten Werte für die Länge $L$, Dämpfungskonstante $\alpha$ und  Permeabilität $\epsilon_r$ von Kabel 3 sind 
+\begin{align}
+    L_\T{K3, estimated} &= \qty{84.16}{\meter} \\
+    \alpha_\T{K3, estimated} &= \qty{0.009}{\per\meter} \\
+    {\epsilon_r}_\T{K3, estimated} &= 2.32 \; .
+\end{align}
+
+Ein Vergleich der Werte für verschiedene Längen $L$ von Kabel 3 ist, zusammen mit der linearen Regression, in \autoref{fig:real_l} zu sehen.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{content/plots/vphase.pdf}
+    \caption{Vergleich der gemessenen Daten mit Annahme $L_\T{K3} \approx 20 \mathrm{m}$ und anhand der anderen Werte abgeleiteten Länge $L_\T{K3} \approx 80 \mathrm{m}$.}
+    \label{fig:real_l}
+\end{figure}
+
+
+
+\subsection{Abschlüsse}
+
 
 
 

@@ -15,7 +15,7 @@ Hierbei wird als Leitung ein Koaxialkabel betrachtet. Dieses besteht aus zwei zy
     \centering
     \includegraphics[width=0.4\textwidth]{content/pics/tabelle.png}
     \caption{Formeln zur Bestimmung der Parameter der Leitungsbeläge.\cite{Durchfuhrung}}
-    \label{fig:tabelle}
+    \label{fig:formel_tabelle}
 \end{figure}
 $R_s = \sqrt{\frac{\pi \nu \mu_c}{\sigma_c}}$ ist hierbei eine Konstante, $d$ und $D$ sind Innen- bzw Außenradius des Kabels, $\sigma$ ist die elektrische Leitfähigkeit, $\mu$ ist die magnetische Permeabilität und $\epsilon$ die Dielektrizitätskonstante.  
 Um zu beschreiben, wie sich ein Signal auf einer Leitung in Form von Wellen ausbreitet, wird die Telegraphengleichung verwendet. Diese lautet:
@@ -32,6 +32,7 @@ $\gamma = \alpha + j\beta = \sqrt{(R + j\omega L)(G + j\omega C)}$ beschrieben. 
 Dabei ist $\alpha$ definiert durch:
 \begin{equation}
     \alpha = \frac{1}{z} \ln\left(\frac{U_0}{U(z)}\right)
+    \label{eq:alpha}
 \end{equation}
 Für die Geschwindikeit der Signale gilt $v = \frac{c_0}{\sqrt{\epsilon_r}}$, da sich die elektromagnetischen Wellen mit Lichtgeschwindigkeit ausbreiten, hierbei ist $c_0$ die Lichtgeschwindigkeit und $\epsilon_r$ die relative Dielektrizitätskonstante. 
 Eine verlustbehaftete Leitung führt zur Verzerrung des Signals.

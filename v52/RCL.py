@@ -56,3 +56,7 @@ ax4.grid()
 
 fig.tight_layout()
 fig.savefig(dir + "RCL.pdf")
+
+
+#Mache Tabelle daraus
+tab2tex([f, R, L, C, Z, phi], [r"$f \, [\mathrm{kHz}]$", r"$R \, [\Omega]$", r"$L \, [\mathrm{µH}]$", r"$C \, [\mathrm{nF}]$", r"$Z \, [\Omega]$", r"$\varphi \, [°]$"], dir_tab + "RCL.tex", cpt=r"Messwerte für Leitungskonstanten $R,L,C,Z,\varphi$ in Abhängigkeit von Frequenz $f$.", lbl="RCL", dgts=[3,1,1,1,5,3])
