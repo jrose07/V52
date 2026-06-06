@@ -1,0 +1,7 @@
+# A_0[V]               , A_1[V], Zero-Level[V], delta_t[ns], L[m]
+#   Langes Kabel:
+-2.8                   , -15.6 , -19.2        ,       856  , 20
+## Mittleres Kabel:
+-3.2                   , -3.52 , -20.2        ,        15.6,  1.5
+### Mittellanges Kabel:
+-2.8                   , -4.6  , -20.2        ,        51.2,  5
