@@ -166,9 +166,146 @@ Ein Vergleich der Werte für verschiedene Längen $L$ von Kabel 3 ist, zusammen 
 
 
 
-\subsection{Abschlüsse}
+\subsection{Bestimmung von verschiedenen Abschlüssen}
+
+Im folgenden werden die Signalverläufe fünf verschiedener Abschlüsse aus der Buchse 2 gezeigt und anhand eines Vergleichs mit \autoref{fig:abschluesse} die Abschlusswiderstände, sowie die Signalspannung $U_0$ bestimmt. \\
+Außerdem werden die Signalverläufe für einen $\qty{50}{\ohm}$, $\qty{75}{\ohm}$ ein offenes Ende und einen Kurzschlussabschluss gezeigt und verglichen. \\
+Als Signal wird ein Rechtecksimpuls mit einer Frequenz von $f=\qty{1}{\kilo\hertz}$ und einer Breite von $\qty{1}{\micro\second}$ verwendet.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{content/pics/abschluesse.png}
+    \caption{Signalspannung $U(t)$ und Zeitkonstanten $T$ für verschiedene Abschlusswiderstände~\cite{Durchfuhrung}.}
+    \label{fig:abschluesse}
+\end{figure}
+
+\vspace{5cm}
+
+\textbf{Abschluss 1}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{content/pics/oszi/Abschluss1.jpg}
+    \caption{Signalverlauf bei Abschluss 1.}
+    \label{fig:Abschluss1}
+\end{figure}
+
+Hier ist erkennbar, dass der Abschlusswiderstand ein in Reihe geschalteter Ohmscher Widerstand mit einem Kondensator sein muss, da das Signal nach dem ersten Rechtecksimpuls nicht direkt auf das Nullniveau wieder absinkt. \\
+Die Signalspannung lässt sich bei $U_0 = \qty{14.5(2)}{\volt}$ ablesen. \\
 
 
+\textbf{Abschluss 2}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{content/pics/oszi/Abschluss2.jpg}
+    \caption{Signalverlauf bei Abschluss 2.}
+    \label{fig:Abschluss2}
+\end{figure}
+
+Hier ist ebenfalls ein Ohmscher Widerstand und eine Kapazität in Reihe geschaltet, wobei allerdings die Halbwertszeit so groß ist, dass das reflektierte Signal vor der kompletten Relaxation den Signalverlauf stört. \\
+Die Signalspannung beträgt $U_0 = \qty{15(1)}{\volt}$. \\
+
+
+\textbf{Abschluss 3}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{content/pics/oszi/Abschluss3.jpg}
+    \caption{Signalverlauf bei Abschluss 3.}
+    \label{fig:Abschluss3}
+\end{figure}
+
+Bei diesem Abschlusswiderstand handelt es sich um eine Spule, da die Spannung wieder auf das Nullniveau zurück relaxiert. \\
+Die Signalspannung ist $U_0 = \qty{18(4)}{\volt}$. \\
+
+\textbf{Abschluss 5}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{content/pics/oszi/Abschluss5.jpg}
+    \caption{Signalverlauf bei Abschluss 5.}
+    \label{fig:Abschluss5}
+\end{figure}
+
+Hier ist wahrscheinlich ein Widerstand und eine Kapazität parallel geschaltet, da das Signal nach dem ersten Rechteckspuls (fast) auf 0 wieder zurück sinkt und auch nicht auf die doppelte Signalspannung zurück relaxiert. \\
+Diese liegt bei ca $U_0 = \qty{20(2)}{\volt}$. \\
+
+\textbf{Abschluss 8}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{content/pics/oszi/Abschluss8.jpg}
+    \caption{Signalverlauf bei Abschluss 8.}
+    \label{fig:Abschluss8}
+\end{figure}
+
+Bei dem Abschluss 8 ist ein Widerstand und eine Spule seriell geschaltet, was daran erkennbar ist, dass das Signal nicht auf 0 zurück relaxiert. \\
+Die Signalspannung beträgt $U_0 = \qty{20(2)}{\volt}$. \\
+
+\textbf{Weitere Abschlüsse} \\
+
+In \autoref{fig:oszi_abschluesse} ist sind die Signalverläufe für die anderen Abschlüsse zu sehen. \\
+Im Vergleich zwischen den Abschlüssen bei $\qty{50}{\ohm}$ und $\qty{75}{\ohm}$ ist erkenntlich, dass der Reflexionsanteil beim $\qty{50}{\ohm}$-Widerstand komplett verschwindet, während beim $\qty{75}{\ohm}$-Abschluss nach der Reflexionszeit von ca. $\qty{50}{\nano\second}$ noch ein kleiner zusätzlicher Anteil zu sehen ist. \\
+Im Vergleich vom offenem Ende zum Kurzschluss ist zu beobachten, dass beim offenen Ende die reflektierte Welle konstruktiv mit dem Eingangssignal interferiert, während beim Kurzschluss sich Eingangs- und Reflexionssignal gegenseitig auslöschen.
+
+\begin{figure}[htbp]
+    \centering
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{content/pics/oszi/50Ohm.jpg}
+        \caption{$\qty{50}{\ohm}$-Abschluss.}        
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{content/pics/oszi/75Ohm.jpg}
+        \caption{$\qty{75}{\ohm}$-Abschluss.}
+    \end{subfigure}
+    \vfill
+        \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{content/pics/oszi/Offenes_Ende.jpg}
+        \caption{Offenes Ende.}        
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{content/pics/oszi/Kurzschluss.jpg}
+        \caption{Kurzschluss.}
+    \end{subfigure}
+    \caption{Weitere verschiedene Abschlüsse.}
+    \label{fig:oszi_abschluesse}
+\end{figure}
+
+\vspace{5cm}
+
+\subsection{Mehrfachreflexion und Impulsfahrplan}
+
+In \autoref{fig:mehrfach_oszi} ist der Signalverlauf bei der Reihenschaltung eines eher kurzen $\qty{50}{\ohm}$- und eines eher langen $\qty{75}{\ohm}$-Kabels zu sehen. 
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{content/pics/oszi/50Ohm75Ohm.jpg}
+    \caption{Signalverlauf bei Mehrfachreflexion.}
+    \label{fig:mehrfach_oszi}
+\end{figure}
+
+Das Eingangssignal liegt bei $U_0 \approx \qty{25.4}{\volt}$ und trifft dann nach ca. $\qty{20}{\nano\second}$ als an der Schnittstelle zwischen den beiden Kabeln reflektierte Welle mit einer Signalstärke von $U_1 \approx \qty{5}{\volt}$ auf das Oszilloskop. \\
+Das nicht direkt reflektierte Signal ist dann als Peak bei ca. $\qty{150}{\nano\second}$ mit einer Stärke von $U_2 \approx \qty{20.4}{\volt}$ zu sehen. $U_3 \approx \qty{0.8}{\volt}$ ist dann kurz danach die wiederkehrte Reflexion an der Grenze der Kabel. Die restlichen Peaks sind durch weitere Mehrfachreflexionen erklärbar. \\
+Die Reflexionsfaktoren $\Gamma_0$ an der Schnittstelle der Kabel und $\Gamma_1$ am Ende vom $\qty{75}{\ohm}$-Kabel können über die Formeln 
+\begin{align}
+    \Gamma_0 &= \frac{U_1}{U_0} \approx 19.69 \% \intertext{und} \Gamma_1 &= \frac{U_2}{U_0(1-\Gamma_0^2)^2} \approx 86.92 \% .
+\end{align}
+
+Ein Impulsfahrplan für diesen Aufbau ist in \autoref{fig:fahrplan} zu sehen.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{content/pics/fahrplan.jpg}
+    \caption{Impulsfahrplan.}
+    \label{fig:fahrplan}
+\end{figure}
 
 
 \clearpage
