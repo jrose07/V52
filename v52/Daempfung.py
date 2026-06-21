@@ -11,6 +11,19 @@ import matplotlib.pyplot as plt
 dir = "content/plots/"
 dir_tab = "content/tables/"
 
+
+# Bestimme Längen der Kabel. Dazu verwende Phasengeschwindigkeit v_ph eines RG-58C/U Kabel (d=0.9mm, D=2.95mm, eps = 2.25), welche auch in verschiedenen Längen bei der Messung genutzt wurden. 
+d = 0.9 # mm
+D = 2.95 # mm
+eps = 2.25 # = eps_0 * eps_r
+L = 1/(2*np.pi)*np.log(D/d) # H/m
+C = 2*np.pi*eps/(np.log(D/d)) # F/m
+v_ph = 1/np.sqrt(L*C)*const.c # m/s
+
+"""Bekomme mit dieser theoretischen Überlegung die Längen der anderen Sachen heraus."""
+
+
+
 def get_alpha(U_0, U_1, L):
     """Es gilt die Formel U(z) = U_0 * exp(-alpha*z) mit z:Länge entlang des Kabels. 
     D.h. um alpha zu berechnen braucht man auch den Abstand zwischen den Peaks
@@ -24,6 +37,7 @@ A_0, A_1, Zero, dt, L = np.genfromtxt("raw/laenge_daempfung.csv", delimiter=",",
 L = ufloat(L, 0.01) #m
 dt_mittel = dt
 L_mittel = L
+L_mittel_theo = dt*1e-9*v_ph/2
 
 #Beziehe Höhe der Peaks auf Zero-Level:
 U_0 = np.abs(A_0 - Zero)
@@ -36,6 +50,7 @@ A_0, A_1, Zero, dt, L = np.genfromtxt("raw/laenge_daempfung.csv", delimiter=",",
 L = ufloat(L, 0.05) #m
 dt_mittellang = dt
 L_mittellang = L
+L_mittellang_theo = dt*1e-9**v_ph/2
 
 #Beziehe Höhe der Peaks auf Zero-Level:
 """Es gilt die Formel U(z) = U_0 * exp(-alpha*z) mit z:Länge entlang des Kabels. 
@@ -53,13 +68,15 @@ A_0, A_1, Zero, dt, L = np.genfromtxt("raw/laenge_daempfung.csv", delimiter=",",
 L = ufloat(L, 0.01) #m
 dt_lang = dt 
 L_lang = L
+L_lang_theo = dt*1e-9*v_ph/2
+
 #Beziehe Höhe der Peaks auf Zero-Level:
 U_0 = np.abs(A_0 - Zero)
 U_1 = np.abs(A_1 - Zero)
 alpha_lang = get_alpha(U_0, U_1, L)
 
 
-print(alpha_lang, alpha_mittel, alpha_mittellang)
+# print(alpha_lang, alpha_mittel, alpha_mittellang)
 
 #---------Bestimme anhand von Länge und delta_t die Phasengeschindigkeit und damit das epsilon der Kabel---------------- v_ph = 2L/dt <=> L(t) = v_ph/2 * t + 0
 
@@ -71,15 +88,15 @@ L_arr = unp.uarray(noms([L_lang, L_mittel, L_mittellang]), stds([L_lang, L_mitte
 e_l = (const.c * dt_arr[0]*1e-9 / (2*L_arr[0]))**2
 e_m = (const.c * dt_arr[1]*1e-9 / (2*L_arr[1]))**2
 e_ml = (const.c * dt_arr[2]*1e-9 / (2*L_arr[2]))**2
-print(e_l, e_m, e_ml)
+# print(e_l, e_m, e_ml)
 
 write("Alphas und epsilons:\n\n")
 add(f"Für L = 20m (langes Kabel):\n")
-add(f"alpha = {alpha_lang:.6f} 1/m,\tepsilon = {e_l:.2f}\n")
+add(f"alpha = {alpha_lang:.6f} 1/m,\tepsilon = {e_l:.2f}\tL_theo = {L_lang_theo:.2f}\n")
 add(f"Für L = 1.5m (mittleres Kabel):\n")
-add(f"alpha = {alpha_mittel:.6f} 1/m,\tepsilon = {e_m:.2f}\n")
+add(f"alpha = {alpha_mittel:.6f} 1/m,\tepsilon = {e_m:.2f}\tL_theo = {L_mittel_theo:.2f}\n")
 add(f"Für L = 5m (mittellanges Kabel):\n")
-add(f"alpha = {alpha_mittellang:.4f} 1/m,\tepsilon = {e_ml:.2f}\n")
+add(f"alpha = {alpha_mittellang:.4f} 1/m,\tepsilon = {e_ml:.2f}\tL_theo = {L_mittellang_theo:.2f}\n")
 
 
 
@@ -88,7 +105,7 @@ add(f"alpha = {alpha_mittellang:.4f} 1/m,\tepsilon = {e_ml:.2f}\n")
 
 #Nehme langes Kabel werte heraus
 
-print(dt_arr[1:], L_arr[1:])
+# print(dt_arr[1:], L_arr[1:])
 result = linregress(dt_arr[1:], noms(L_arr[1:]))
 m = ufloat(result.slope, result.stderr)
 b = ufloat(result.intercept, result.intercept_stderr)

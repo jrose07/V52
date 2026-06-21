@@ -14,8 +14,6 @@ dir_tab = "content/tables/"
 #Importiere Daten
 f, R, L, C, Z, phi = np.genfromtxt("raw/RCL.csv", delimiter=",", skip_header=1, unpack=True)
 
-#Kreisfrequenz
-omega = 2*np.pi*f #[kHz]
 
 #Add Uncertainties
 R = unp.uarray(R, 0.001)
@@ -32,26 +30,26 @@ d = 0.9 #mm
 D = 2.95 #mm
 epsilon = 2.25
 
-G = 2*np.pi*omega*epsilon / np.log(D/d)
+G = (2*np.pi)**2*f*epsilon / np.log(D/d)
 
 #Plotte R,L,G,C in Abhängigkeit von omega
 
 fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2,2, figsize=(10, 8))
 
-ax1.errorbar(omega, noms(R), yerr=stds(R), color="red", fmt=".")
-ax1.set(title="R(ω)", xlabel="ω [rad/s]", ylabel=r"$R \, [\Omega]$")
+ax1.errorbar(f, noms(R), yerr=stds(R), color="red", fmt=".")
+ax1.set(title="R(ω)", xlabel="f [kHz]", ylabel=r"$R \, [\Omega]$")
 ax1.grid()
 
-ax2.errorbar(omega, noms(L), yerr=stds(L), color="green", fmt=".")
-ax2.set(title="L(ω)", xlabel="ω [rad/s]", ylabel=r"$L \, [\mu H]$")
+ax2.errorbar(f, noms(L), yerr=stds(L), color="green", fmt=".")
+ax2.set(title="L(ω)", xlabel="f [kHz]", ylabel=r"$L \, [\mu H]$")
 ax2.grid()
 
-ax3.plot(omega, G, "b.")
-ax3.set(title="G(ω)", xlabel="ω [rad/s]", ylabel=r"$G \, [\frac{kS}{m}]$")
+ax3.plot(f, G, "b.")
+ax3.set(title="G(ω)", xlabel="f [kHz]", ylabel=r"$G \, [\frac{kS}{m}]$")
 ax3.grid()
 
-ax4.errorbar(omega, noms(C), yerr=stds(C), color="k", fmt=".")
-ax4.set(title="C(ω)", xlabel="ω [rad/s]", ylabel=r"$C \, [nF]$")
+ax4.errorbar(f, noms(C), yerr=stds(C), color="k", fmt=".")
+ax4.set(title="C(ω)", xlabel="f [kHz]", ylabel=r"$C \, [nF]$")
 ax4.grid()
 
 fig.tight_layout()
@@ -59,4 +57,4 @@ fig.savefig(dir + "RCL.pdf")
 
 
 #Mache Tabelle daraus
-tab2tex([f, R, L, C, Z, phi], [r"$f \, [\mathrm{kHz}]$", r"$R \, [\Omega]$", r"$L \, [\mathrm{µH}]$", r"$C \, [\mathrm{nF}]$", r"$Z \, [\Omega]$", r"$\varphi \, [°]$"], dir_tab + "RCL.tex", cpt=r"Messwerte für Leitungskonstanten $R,L,C,Z,\varphi$ in Abhängigkeit von Frequenz $f$.", lbl="RCL", dgts=[3,1,1,1,5,3])
+# tab2tex([f, R, L, C, Z, phi], [r"$f \, [\mathrm{kHz}]$", r"$R \, [\Omega]$", r"$L \, [\mathrm{µH}]$", r"$C \, [\mathrm{nF}]$", r"$Z \, [\Omega]$", r"$\varphi \, [°]$"], dir_tab + "RCL.tex", cpt=r"Messwerte für Leitungskonstanten $R,L,C,Z,\varphi$ in Abhängigkeit von Frequenz $f$.", lbl="RCL", dgts=[3,1,1,1,5,3])
