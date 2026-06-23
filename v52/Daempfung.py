@@ -43,14 +43,15 @@ L_mittel_theo = dt*1e-9*v_ph/2
 U_0 = np.abs(A_0 - Zero)
 U_1 = np.abs(A_1 - Zero)
 
-alpha_mittel = get_alpha(U_0, U_1, L)
+alpha_mittel = get_alpha(U_0, U_1, L_mittel_theo)
 
 #---------------Für mittellanges Kabel------------------
 A_0, A_1, Zero, dt, L = np.genfromtxt("raw/laenge_daempfung.csv", delimiter=",", unpack=True, skip_header=6)
 L = ufloat(L, 0.05) #m
 dt_mittellang = dt
 L_mittellang = L
-L_mittellang_theo = dt*1e-9**v_ph/2
+L_mittellang_theo = dt*1e-9*v_ph/2
+print(L_mittellang_theo, dt)
 
 #Beziehe Höhe der Peaks auf Zero-Level:
 """Es gilt die Formel U(z) = U_0 * exp(-alpha*z) mit z:Länge entlang des Kabels. 
@@ -59,7 +60,7 @@ also U_1 = U_0 * exp(-alpha * 2*L) mit L:Länge des Kabels."""
 U_0 = np.abs(A_0 - Zero)
 U_1 = np.abs(A_1 - Zero)
 
-alpha_mittellang = get_alpha(U_0, U_1, L)
+alpha_mittellang = get_alpha(U_0, U_1, L_mittellang_theo)
 
 #-------------Für das Lange Kabel--------------------:
 
@@ -73,7 +74,7 @@ L_lang_theo = dt*1e-9*v_ph/2
 #Beziehe Höhe der Peaks auf Zero-Level:
 U_0 = np.abs(A_0 - Zero)
 U_1 = np.abs(A_1 - Zero)
-alpha_lang = get_alpha(U_0, U_1, L)
+alpha_lang = get_alpha(U_0, U_1, L_lang_theo)
 
 
 # print(alpha_lang, alpha_mittel, alpha_mittellang)
@@ -139,4 +140,29 @@ e_l_theo = ee_l
 
 add(f"Für langes Kabel errechnete Werte (basierend auf der Tendenz der anderen beiden Messpunkte):\n")
 add(f"Alpha_estimated = {alpha_lang_theo:.4f} 1/m ,\tepsilon_estimated={e_l_theo:.2f} ,\t L_lang_theo = {L_lang_theo:.2f} m\n")
-add(f"Koeffizienten Linregress: m = {m:.4f} m/ns, \t b = {b:.4f} m ")
+add(f"Koeffizienten Linregress: m = {m:.4f} m/ns, \t b = {b:.4f} m \n\n")
+
+
+
+"""FÜr die Abschlüsse aus Aufgabe 4 soll eps_r bestimmt werden, indem am Oszilloskop die Zeit bis der reflektierte Impuls zurück kommt gemessen wird (und die Länge L)"""
+
+L = 5.12 #Es wurde das mittlere Kabel 2 verwendet.
+
+#dts für verschiedene abschlüsse
+
+dt = unp.uarray([52,50,50,60,60],[10,50,10,20,20])*1e-9 #s
+
+v_ph = 2*L/dt
+eps_r = (const.c/v_ph)**2
+
+# Mache den gewichteten Mittelwert 
+omega = 1/stds(eps_r)**2
+eps_r_mean = ufloat(np.sum(omega*noms(eps_r))/np.sum(omega), np.sqrt(1/np.sum(omega)))
+
+#Abweichung von Theoriewert eps_r_theo = 2.25
+eps_r_theo = 2.25
+deps = np.abs(eps_r_theo - eps_r_mean)/eps_r_mean
+
+add(f"Bestimmtes Epsilon_r des Kabels:\n\n")
+add(f"dt's = {dt*1e9} ns\n\neps_r's = {eps_r}\n\nGewichteter Mittelwert eps_r_mean = {eps_r_mean}\n\n")
+add(f"Abweichung von Eps_r_theo = 2.25:\nDelta Eps = {deps*100:.2f} %")

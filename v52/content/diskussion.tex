@@ -7,24 +7,28 @@
 %     \label{eq:abweichung}
 % \end{equation}
 % bestimmt.
-
+Im folgenden Abschnitt werden die Ergebnisse der einzelnen Versuchsteile diskutiert.
 
 \subsection{Frequenzabhängigkeit der Leitungskonstanten}
 
 Wie recht gut anhand der Plots zu sehen ist, sind die Leitungskonstanten $R,C,L$ größtenteils konstant für den Frequenzbereich $1-20 \mathrm{kHz}$, was auch zu erwarten war. Bei $\qty{100}{\kilo\hertz}$ ist allerdings eine größere Abweichung zu erkennen, was zum Beispiel für den Widerstand $R$ durch den erst in diesem Bereich auftretenden Skin-Effekt erklärt werden kann. Für $L$ und $C$ ist diese Abhängigkeit allerdings eher ungewöhnlich. \\
 Die klare lineare Abhängigkeit von $G(\omega)$ ist dadurch zu erklären, dass die Werte nicht experimentell bestimmt, sondern aus den Frequenzwerten berechnet wurden.
 
-\subsection{Dämpfungs- und Dielektrizitätskonstanten}
+\subsection{Dämpfungskonstanten und Längen}
 
-Es ist wie bereits geschrieben zu beobachten, dass die errechneten Dielektrizitätskonstanten für Kabel 1 und Kabel 2 gut zu den typischen Dielektrizitätskonstanten passen, was auf eine recht gute Messung der Länge bzw. einer guten relativen Auflösung am Oszilloskop hindeutet. \\
-Das bekannte Problem bei Kabel 3 mit einer Dielektrizitätskonstante von $\epsilon_r \approx 41$ bei Annahme einer Länge von $L \approx \qty{20}{\meter}$ kann zum Beispiel wie bereits gesehen dadurch erklärt werden, dass die geschätzte Länge nicht der tatsächliche Länge entspricht, was bei einer Kabeltrommel schnell passieren kann. \\
-Die anhand der Annahme, eine Dielektrizitätskonstante bei Kabel 3 wie bei Kabel 1 und 2 zu haben, getroffene Abschätzung, das Kabel 3 müsste demnach eine Länge von $L \approx \qty{84}{\meter}$ haben ist nicht sehr abwegig, da es durchaus Kabeltrommeln mit Kabeln dieser Länge gibt. \\
-Eine genauere Aussage kann natürlich nur nach einer tatsächlichen Messung getroffen werden.
+Es ist zu erkennen, dass die experimentell bestimmten Länge aus \autoref{tab:Längen} für Kabel 1 und Kabel 2 gut mit den in \autoref{tab:3kabel} zu sehenen mit dem Zollstock gemessenen Längen übereinstimmen. Für Kabel 3 stimmt der experimentell bestimmte Wert $L_{3, \T{exp}} = \qty{85.54}{\meter}$ allerdings nicht mit dem abgeschätzten Wert $L_{3, \T{theo}} = \qty{20}{\meter}$ überein, was darauf schließen lässt, dass der geschätzte Wert von $L_{3, \T{theo}} = \qty{20}{\meter}$ keine gute Annahme zu sein scheint. \\
+
+Die Dämpfungskonstanten in \autoref{tab:alpha} der drei Koaxialkabel sind in der selben Größenordnung, was auf eine gute Messung hinzudeuten scheint, sowie ist keine klare Abhängigkeit von der Länge des Kabel zu beobachten. Die Dämpfung kann also  als unabhängig von der Länge des Kabels angenommen werden . Die Abweichungen voneinander sind wahrscheinlich auf Messfehler bei der manuellen Ablese am Oszilloskop und teilweise einer endlichen Zeitauflösung des Signals zu schieben, da aufgrund der hohen Phasengeschwindigkeit schon bei kleinen Abweichungen in der Zeit, eine große Abweichung in der Länge des Kabels und damit auch in der Dämpfungskonstante zu sehen ist. 
+
+% Es ist wie bereits geschrieben zu beobachten, dass die errechneten Dielektrizitätskonstanten für Kabel 1 und Kabel 2 gut zu den typischen Dielektrizitätskonstanten passen, was auf eine recht gute Messung der Länge bzw. einer guten relativen Auflösung am Oszilloskop hindeutet. \\
+% Das bekannte Problem bei Kabel 3 mit einer Dielektrizitätskonstante von $\epsilon_r \approx 41$ bei Annahme einer Länge von $L \approx \qty{20}{\meter}$ kann zum Beispiel wie bereits gesehen dadurch erklärt werden, dass die geschätzte Länge nicht der tatsächliche Länge entspricht, was bei einer Kabeltrommel schnell passieren kann. \\
+% Die anhand der Annahme, eine Dielektrizitätskonstante bei Kabel 3 wie bei Kabel 1 und 2 zu haben, getroffene Abschätzung, das Kabel 3 müsste demnach eine Länge von $L \approx \qty{84}{\meter}$ haben ist nicht sehr abwegig, da es durchaus Kabeltrommeln mit Kabeln dieser Länge gibt. \\
+% Eine genauere Aussage kann natürlich nur nach einer tatsächlichen Messung getroffen werden.
 
 \subsection{Bestimmung der Abschlüsse}
 
 Die Messung hat gut funktioniert, die Abschlüsse konnten gut den jeweiligen Widerstandsschaltungen zugeordnet werden. \\
-Probleme gab es hierbei nur, die passenden Einstellungen der Impulslänge am Funktionsgenerator im Bezug zur Länge des Kabels zu finden, damit der Reflexionsimpuls rechtzeitig (vor dem nächsten Eingangsimpuls) auf das Eingangssignal trifft und den charakteristischen Verlauf zeigt.
+Probleme gab es hierbei nur, die passenden Einstellungen der Impulslänge am Funktionsgenerator im Bezug zur Länge des Kabels zu finden, damit der Reflexionsimpuls rechtzeitig (vor dem nächsten Eingangsimpuls) eintrifft und der charakteristischen Verlauf abgebildet wird.
 
 \subsection{Mehrfachreflexion und Impulsfahrplan}
 

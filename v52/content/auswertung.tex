@@ -21,6 +21,12 @@ Der Einfachheit halber wird hierbei das Python-Paket \textit{uncertainties} verw
 \hspace{1cm}
 % Ende Fehlerrechnung
 
+Um den Mittelwert $\overline{x_\T{gew}}$  mehrerer fehlerbehafteter Größen $x_i$ mit Abweichungen $\sigma_i$ zu berechnen wird der \textit{gewichtete Mittelwert} gemäß der Formel
+\begin{align}
+    \overline{x}_\T{gew} &= \frac{\sum_i \omega_i x_i}{\sum_i \omega_i} \label{eq:gewichteter_mittelwert} \\
+    \sigma_{\overline{x}_\T{gew}} &= \sqrt{\frac{1}{\sum_i \omega_i}} \label{eq:gewichtete_standardabweichung}
+\end{align}
+mit den Gewichten $\omega_i = \frac{1}{\sigma_i^2}$ verwendet.
 
 \subsection{Frequenzabhängigkeit der Leitunsgskonstanten}
 
@@ -44,10 +50,18 @@ Damit können $R, L, C$ und $G$ in Abhängigkeit der Frequenz dargestellt werden
     \label{fig:RCLG}
 \end{figure}
 
-\subsection{Dämpfungs- und Dielektrizitätskonstanten}
+\subsection{Dämpfungskonstanten und Längen der Kabel}
 
-Für die drei verschiedenen Koaxialkabel mit offenem Ende werden anhand der in \autoref{fig:3kabel_oszi} zu sehenden Oszillogramme des Signalverlaufs die Eingangs- und Reflexionspeaks bestimmt. Außerdem wird die Zeitdifferenz $\Delta t$ zwischen den Peaks vom Oszilloskop abgelesen. \\
-Zusätzlich werden für Kabel 1 und Kabel 2 mithilfe eines Zollstocks die Längen $L$ gemessen. Für Kabel 3 wird die Länge als $L \approx \qty{20}{\meter}$ abgeschätzt, da es sich um ein sehr langes Kabel handelt. Die Gültigkeit dieser Abschätzung wird später überprüft. \\
+Auch hier werden wieder Koaxialkabel des Typs RG-58C/U mit den Materialkonstanten
+\begin{align}
+    d &= \qty{0.9}{\milli\meter} \\
+    D &= \qty{2.95}{\milli\meter} \\
+    \epsilon_r &= \qty{2.25}{}
+\end{align}
+verwendet~\cite{Durchfuhrung}.
+Für die drei verschiedenen Koaxialkabel mit offenem Ende werden anhand der in \autoref{fig:3kabel_oszi} zu sehenden Oszillogramme des Signalverlaufs die Eingangs- und Reflexionspeaks bestimmt. Außerdem wird die Zeitdifferenz $\Delta t$ zwischen den Peaks vom Oszilloskop abgelesen und damit die Länge $L$ der Kabel berechnet. \\
+Zusätzlich werden die Längen für Kabel 1 und Kabel 2 auch mithilfe eines Zollstocks zur Validierung der experimentellen Methode gemessen. Für Kabel 3 wird die Länge als $L \approx \qty{20}{\meter}$ abgeschätzt, da es sich um ein sehr langes Kabel handelt. Die Gültigkeit dieser Abschätzung wird später überprüft. \\
+
 
 \begin{figure}[htbp]
     \centering
@@ -71,7 +85,7 @@ Zusätzlich werden für Kabel 1 und Kabel 2 mithilfe eines Zollstocks die Länge
         % \caption{Kabel 3.}
         \label{fig:kabel3}
     \end{subfigure}
-    \caption{Oszillogramme der drei Koaxialkabel. V.l.n.R. Kabel 1, Kabel 2 und Kabel3. Die Eingangs- und Reflexionspeaks sowie die Zeitdifferenz $\Delta t$ sind zu erkennen.}
+    \caption{Oszillogramme der drei Koaxialkabel. V.l.n.r. Kabel 1, Kabel 2 und Kabel 3. Die Eingangs- und Reflexionspeaks sowie die Zeitdifferenz $\Delta t$ sind zu erkennen.}
     \label{fig:3kabel_oszi}
 \end{figure}
 
@@ -81,18 +95,41 @@ Die gemessenen Werte für die drei Kabel sind in \autoref{tab:3kabel} aufgeliste
 \centering
 \begin{tabular}{lccccc}
     \toprule
-    Kabel & $A_0$ [V] & $A_1$ [V] & Zero-Level [V] & $\Delta t$ [ns] & $L$ [m] \\
+    Kabel & $A_0$ [V] & $A_1$ [V] & Zero-Level [V] & $\Delta t$ [ns] & $L_\T{theo}$ [m] \\
     \midrule
     Kabel 1 & -3,2 & -3,52 & -20,2 & 15,6 & 1,5 \pm 0,1 \\
     Kabel 2 & -2,8 & -4,6  & -20,2 & 51,2 & 5,0 \pm 0,5 \\
     Kabel 3 & -2,8 & -15,6 & -19,2 & 856  & 20,0 \\
     \bottomrule
 \end{tabular}
-\caption{Messwerte für die drei Koaxialkabel. $A_0$ und $A_1$ sind die Spannungen der Eingangs- und Reflexionspeaks, gemessen im Vergleich zum Untergrund-Level (Zero-Level), $\Delta t$ ist die Zeitdifferenz zwischen den Peaks und $L$ ist die Länge des Kabels.}
+\caption{Messwerte für die drei Koaxialkabel. $A_0$ und $A_1$ sind die Spannungen der Eingangs- und Reflexionspeaks, gemessen im Vergleich zum Untergrund-Level (Zero-Level), $\Delta t$ ist die Zeitdifferenz zwischen den Peaks und $L_\T{theo}$ ist die mit Zollstock gemessene bzw. geschätzte Länge des Kabels.}
 \label{tab:3kabel}
 \end{table}
 
-Anhand der gemessenen Werte können nun die Dämpfungskonstanten $\alpha$ für die jeweiligen Kabel berechnet werden. Dazu wird die Formel \eqref{eq:alpha} verwendet, indem $z=2L$, aufgrund der Hin- nud Rücklaufzeit des Signals, eingesetzt wird. 
+Um nun die Längen $L$ der verwendeten Kabel zu bestimmen, kann der bekannte Zusammenhang zwischen der Phasengeschwindigkeit $v_\T{ph}$ und relativen Dielektriziätskonstante verwenden, um nach der Länge $L$ umzustellen. Es gilt dann 
+\begin{align}
+    \frac{2L}{\Delta t} &= v_\T{ph} = \frac{c_0}{\sqrt{\epsilon_r}} \\
+    \implies L &= \frac{c_0 \Delta t}{2 \sqrt{\epsilon_r}} \, ,
+    \label{eq:L}
+\end{align}
+womit nun also mithilfe der Daten aus \autoref{tab:3kabel} die experimentell bestimmten Längen 
+\begin{table}[htbp]
+    \centering
+    \begin{tabular}{lccc}
+    \toprule
+    & Kabel 1 & Kabel 2 & Kabel 3 \\
+    \midrule
+    Länge & \qty{1.56}{\meter} & \qty{5.12}{\meter} & \qty{85.54}{\meter} \\
+    \bottomrule
+\end{tabular}
+\caption{Experimentell bestimmte Längen der drei verschiedenen Koaxialkabel.}
+\label{tab:Längen}
+\end{table}
+in \autoref{tab:Längen} dargestellt sind. 
+
+\vspace{2cm}
+
+Anhand der gemessenen Werte aus~\autoref{tab:3kabel} können nun auch außerdem die Dämpfungskonstanten $\alpha$ für die jeweiligen Kabel berechnet werden. Dazu wird die Formel \eqref{eq:alpha} verwendet, indem $z=2L$, aufgrund der Hin- nud Rücklaufzeit des Signals, eingesetzt wird. 
 $U_0$ und $U(z=2L) := U_1$ werden aus den gemessenen Spannungen als Differenz zum Zero-Level bestimmt, also $U_0 = A_0 - \text{Zero-Level}$ und $U_1 = A_1 - \text{Zero-Level}$. \\
 Die umgestellte Formel für $\alpha$ lautet dann 
 \begin{equation}
@@ -106,124 +143,129 @@ Die berechneten Werte für $\alpha$ sind in \autoref{tab:alpha} aufgelistet.
     \toprule
     Kabel & $\alpha$ [1/m] \\
     \midrule
-    Kabel 1 & \qty{0.00633(0.00004)}{} \\
-    Kabel 2 & \qty{0.0109(0.0001)}{}\\
-    Kabel 3 & \qty{0.03791(0.0002)}{} \\
+    Kabel 1 & \qty{0.0061}{} \\
+    Kabel 2 & \qty{0.0107}{}\\
+    Kabel 3 & \qty{0.0089}{} \\
     \bottomrule
 \end{tabular}
 \caption{Berechnete Dämpfungskonstanten für die drei Koaxialkabel.}
 \label{tab:alpha}
 \end{table}
 
-\vspace{5cm}
-Um nun die Dielektrizitätskonstanten $\epsilon_r$ zu bestimmen wird der bekannte Zusammenhang zwischen der Phasengeschwindigkeit $v_\T{ph}$ und der relativen Dielektrizitätskonstante $\epsilon_r$ verwendet, und nach Länge $L$ und Laufzeit $\Delta t$ umgestellt. Es gilt dann
-\begin{align}
-    \epsilon_r &= \left( \frac{c}{v_\T{ph}} \right)^2 = \left ( \frac{c \Delta t}{2L} \right)^2 \, ,
-\end{align}
-wobei $c$ die Lichtgeschwindigkeit im Vakuum ist. Die berechneten Werte für $\epsilon_r$ sind in \autoref{tab:epsilon} aufgelistet.
-\begin{table}[h!]
-\centering
-\begin{tabular}{lccccc}
-    \toprule
-    Kabel & $\epsilon_r$ \\
-    \midrule
-    Kabel 1 & \qty{2.43(0.03)}{} \\
-    Kabel 2 & \qty{2.36(0.05)}{} \\
-    Kabel 3 & \qty{41.16(0.04)}{} \\
-    \bottomrule
-\end{tabular}
-\caption{Berechnete relative Dielektrizitätskonstanten für die drei Koaxialkabel.}
-\label{tab:epsilon}
-\end{table}
 
-\subsubsection{Gültigkeit der Abschätzung der Länge von Kabel 3}
 
-Es ist zu erkennen, dass die berechnete Dielektrizitätskonstante für Kabel 3 mit einem Wert von $\epsilon_r \approx 41$ deutlich höher liegt als die Werte für Kabel 1 und Kabel 2, die in einem realistischen Bereich von $\epsilon_r \approx 2.4$ liegen. Dies deutet darauf hin, dass die Abschätzung der Länge von Kabel 3 als $L \approx \qty{20}{\meter}$ nicht korrekt ist. \\
-Da auch in den meisten handelsüblichen Koaxialkabeln die Dielektrizitätskonstante im Bereich von $\epsilon_r \approx 2$ bis $\epsilon_r \approx 3$ liegt (ohne Quelle), liegt es Nahe, dass die tatsächliche Länge von Kabel 3 deutlich größer als die abgeschätzten $20$ Meter ist. 
+% Um nun die Dielektrizitätskonstanten $\epsilon_r$ zu bestimmen wird der bekannte Zusammenhang zwischen der Phasengeschwindigkeit $v_\T{ph}$ und der relativen Dielektrizitätskonstante $\epsilon_r$ verwendet, und nach Länge $L$ und Laufzeit $\Delta t$ umgestellt. Es gilt dann
+% \begin{align}
+%     \epsilon_r &= \left( \frac{c}{v_\T{ph}} \right)^2 = \left ( \frac{c \Delta t}{2L} \right)^2 \, ,
+% \end{align}
+% wobei $c$ die Lichtgeschwindigkeit im Vakuum ist. Die berechneten Werte für $\epsilon_r$ sind in \autoref{tab:epsilon} aufgelistet.
+% \begin{table}[h!]
+% \centering
+% \begin{tabular}{lccccc}
+%     \toprule
+%     Kabel & $\epsilon_r$ \\
+%     \midrule
+%     Kabel 1 & \qty{2.43(0.03)}{} \\
+%     Kabel 2 & \qty{2.36(0.05)}{} \\
+%     Kabel 3 & \qty{41.16(0.04)}{} \\
+%     \bottomrule
+% \end{tabular}
+% \caption{Berechnete relative Dielektrizitätskonstanten für die drei Koaxialkabel.}
+% \label{tab:epsilon}
+% \end{table}
 
-Um also die tatsächliche Länge von Kabel 3 zu bestimmen, kann anhand der Messwerte für Kabel 1 und 2 ein Mittelwert für die Phasengeschwindigkeit $v_\T{ph}$, hier mithilfe der Funktion \textit{scipy.stats.linregress}~\cite{scipy}, berechnet werden.\\
-Die Lineare Regression liefert die Koeffizienten 
-\begin{align}
-    m &= \frac{v_\T{ph}}{2} = \qty{0.0983}{\meter\per\nano\second} \\
-    b &= \qty{-0.0337}{\meter}
-\end{align}
-für die Steigung $m$ und y-Achsenabschnitt $b$. \\
-Die daraus errechneten Werte für die Länge $L$, Dämpfungskonstante $\alpha$ und  Permeabilität $\epsilon_r$ von Kabel 3 sind 
-\begin{align}
-    L_\T{K3, estimated} &= \qty{84.16}{\meter} \\
-    \alpha_\T{K3, estimated} &= \qty{0.009}{\per\meter} \\
-    {\epsilon_r}_\T{K3, estimated} &= 2.32 \; .
-\end{align}
+% \subsubsection{Gültigkeit der Abschätzung der Länge von Kabel 3}
 
-Ein Vergleich der Werte für verschiedene Längen $L$ von Kabel 3 ist, zusammen mit der linearen Regression, in \autoref{fig:real_l} zu sehen.
 
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.8\textwidth]{content/plots/vphase.pdf}
-    \caption{Vergleich der gemessenen Daten mit Annahme $L_\T{K3} \approx 20 \mathrm{m}$ und anhand der anderen Werte abgeleiteten Länge $L_\T{K3} \approx 80 \mathrm{m}$.}
-    \label{fig:real_l}
-\end{figure}
+
+
+
+% Es ist zu erkennen, dass die berechnete Dielektrizitätskonstante für Kabel 3 mit einem Wert von $\epsilon_r \approx 41$ deutlich höher liegt als die Werte für Kabel 1 und Kabel 2, die in einem realistischen Bereich von $\epsilon_r \approx 2.4$ liegen. Dies deutet darauf hin, dass die Abschätzung der Länge von Kabel 3 als $L \approx \qty{20}{\meter}$ nicht korrekt ist. \\
+% Da auch in den meisten handelsüblichen Koaxialkabeln die Dielektrizitätskonstante im Bereich von $\epsilon_r \approx 2$ bis $\epsilon_r \approx 3$ liegt (ohne Quelle), liegt es Nahe, dass die tatsächliche Länge von Kabel 3 deutlich größer als die abgeschätzten $20$ Meter ist. 
+
+% Um also die tatsächliche Länge von Kabel 3 zu bestimmen, kann anhand der Messwerte für Kabel 1 und 2 ein Mittelwert für die Phasengeschwindigkeit $v_\T{ph}$, hier mithilfe der Funktion \textit{scipy.stats.linregress}~\cite{scipy}, berechnet werden.\\
+% Die Lineare Regression liefert die Koeffizienten 
+% \begin{align}
+%     m &= \frac{v_\T{ph}}{2} = \qty{0.0983}{\meter\per\nano\second} \\
+%     b &= \qty{-0.0337}{\meter}
+% \end{align}
+% für die Steigung $m$ und y-Achsenabschnitt $b$. \\
+% Die daraus errechneten Werte für die Länge $L$, Dämpfungskonstante $\alpha$ und  Permeabilität $\epsilon_r$ von Kabel 3 sind 
+% \begin{align}
+%     L_\T{K3, estimated} &= \qty{84.16}{\meter} \\
+%     \alpha_\T{K3, estimated} &= \qty{0.009}{\per\meter} \\
+%     {\epsilon_r}_\T{K3, estimated} &= 2.32 \; .
+% \end{align}
+
+% Ein Vergleich der Werte für verschiedene Längen $L$ von Kabel 3 ist, zusammen mit der linearen Regression, in \autoref{fig:real_l} zu sehen.
+
+% \begin{figure}[htbp]
+%     \centering
+%     \includegraphics[width=0.8\textwidth]{content/plots/vphase.pdf}
+%     \caption{Vergleich der gemessenen Daten mit Annahme $L_\T{K3} \approx 20 \mathrm{m}$ und anhand der anderen Werte abgeleiteten Länge $L_\T{K3} \approx 80 \mathrm{m}$.}
+%     \label{fig:real_l}
+% \end{figure}
 
 
 
 \subsection{Bestimmung von verschiedenen Abschlüssen}
 
-Im folgenden werden die Signalverläufe fünf verschiedener Abschlüsse aus der Buchse 2 gezeigt und anhand eines Vergleichs mit \autoref{fig:abschluesse} die Abschlusswiderstände, sowie die Signalspannung $U_0$ bestimmt. \\
+Im folgenden werden die Signalverläufe fünf verschiedener Abschlüsse aus der Buchse 2 gezeigt und anhand eines Vergleichs mit \autoref{fig:abschluesse} die Abschlusswiderstände, sowie die Signalspannung $U_0$ bestimmt. Hierbei wird außerdem auch die Signaldauer abgelesen und damit später die relative Dielektrizitätskonstante $\epsilon_r$ des Kabels berechnet.\\
 Außerdem werden die Signalverläufe für einen $\qty{50}{\ohm}$, $\qty{75}{\ohm}$ ein offenes Ende und einen Kurzschlussabschluss gezeigt und verglichen. \\
 Als Signal wird ein Rechtecksimpuls mit einer Frequenz von $f=\qty{1}{\kilo\hertz}$ und einer Breite von $\qty{1}{\micro\second}$ verwendet.
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.8\textwidth]{content/pics/abschluesse.png}
+    \includegraphics[width=0.6\textwidth]{content/pics/abschluesse.png}
     \caption{Signalspannung $U(t)$ und Zeitkonstanten $T$ für verschiedene Abschlusswiderstände~\cite{Durchfuhrung}.}
     \label{fig:abschluesse}
 \end{figure}
 
-\vspace{5cm}
+\vspace{7cm}
 
 \textbf{Abschluss 1}
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.6\textwidth]{content/pics/oszi/Abschluss1.jpg}
+    \includegraphics[width=0.5\textwidth]{content/pics/oszi/Abschluss1.jpg}
     \caption{Signalverlauf bei Abschluss 1.}
     \label{fig:Abschluss1}
 \end{figure}
 
 Hier ist erkennbar, dass der Abschlusswiderstand ein in Reihe geschalteter Ohmscher Widerstand mit einem Kondensator sein muss, da das Signal nach dem ersten Rechtecksimpuls nicht direkt auf das Nullniveau wieder absinkt. \\
-Die Signalspannung lässt sich bei $U_0 = \qty{14.5(2)}{\volt}$ ablesen. \\
+Die Signalspannung lässt sich bei $U_0 = \qty{20(2)}{\volt}$ ablesen. \\
 
 
 \textbf{Abschluss 2}
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.6\textwidth]{content/pics/oszi/Abschluss2.jpg}
+    \includegraphics[width=0.5\textwidth]{content/pics/oszi/Abschluss2.jpg}
     \caption{Signalverlauf bei Abschluss 2.}
     \label{fig:Abschluss2}
 \end{figure}
 
 Hier ist ebenfalls ein Ohmscher Widerstand und eine Kapazität in Reihe geschaltet, wobei allerdings die Halbwertszeit so groß ist, dass das reflektierte Signal vor der kompletten Relaxation den Signalverlauf stört. \\
-Die Signalspannung beträgt $U_0 = \qty{15(1)}{\volt}$. \\
+Die Signalspannung beträgt $U_0 = \qty{22(1)}{\volt}$. \\
 
 
 \textbf{Abschluss 3}
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.6\textwidth]{content/pics/oszi/Abschluss3.jpg}
+    \includegraphics[width=0.5\textwidth]{content/pics/oszi/Abschluss3.jpg}
     \caption{Signalverlauf bei Abschluss 3.}
     \label{fig:Abschluss3}
 \end{figure}
 
 Bei diesem Abschlusswiderstand handelt es sich um eine Spule, da die Spannung wieder auf das Nullniveau zurück relaxiert. \\
-Die Signalspannung ist $U_0 = \qty{18(4)}{\volt}$. \\
+Die Signalspannung ist $U_0 = \qty{20(4)}{\volt}$. \\
 
 \textbf{Abschluss 5}
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.6\textwidth]{content/pics/oszi/Abschluss5.jpg}
+    \includegraphics[width=0.5\textwidth]{content/pics/oszi/Abschluss5.jpg}
     \caption{Signalverlauf bei Abschluss 5.}
     \label{fig:Abschluss5}
 \end{figure}
@@ -235,13 +277,54 @@ Diese liegt bei ca $U_0 = \qty{20(2)}{\volt}$. \\
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.6\textwidth]{content/pics/oszi/Abschluss8.jpg}
+    \includegraphics[width=0.5\textwidth]{content/pics/oszi/Abschluss8.jpg}
     \caption{Signalverlauf bei Abschluss 8.}
     \label{fig:Abschluss8}
 \end{figure}
 
 Bei dem Abschluss 8 ist ein Widerstand und eine Spule seriell geschaltet, was daran erkennbar ist, dass das Signal nicht auf 0 zurück relaxiert. \\
 Die Signalspannung beträgt $U_0 = \qty{20(2)}{\volt}$. \\
+
+Die abgelesenen Reflektionszeiten $\Delta t$ sind in \autoref{tab:dt} aufgetragen.
+
+\begin{table}[htbp]
+    \centering\begin{tabular}{lccccc}
+        \toprule
+        & Abschluss 1 & Abschluss 2 & Abschluss 3 & Abschluss 5 & Abschluss 8 \\
+        \midrule
+        $\Delta t [\mathrm{ns}]$ & 52 \pm 10 & 50 \pm 50 & 50 \pm 10 & 60 \pm 20 & 60 \pm 20 \\
+        \bottomrule
+    \end{tabular}
+    \caption{Zeiten $\Delta t$ bis reflektiertes Signal Eingangssignal überlagert für fünf verschiedene Abschlüsse.}
+    \label{tab:dt}
+\end{table}
+
+Es lässt sich nun aus Gleichung~\eqref{eq:L} die Relation 
+\begin{equation}
+    \epsilon_r = \left(\frac{c \Delta t}{2L}\right)^2
+\end{equation}
+für die Dielektrizitätskonstante $\epsilon_r$ herleiten. Da hierbei für alle Versuchsteile das Kabel 2 mit einer Länge von $L = \qty{1.12}{\meter}$ aus \autoref{tab:Längen} verwendet wurde, ergeben sich so die Werte 
+\begin{table}[htbp]
+    \centering\begin{tabular}{lc}
+        \toprule 
+        Abschlüsse & $\epsilon_r $\\
+        \midrule 
+        Abschluss 1 & 2.31 \pm 0.89 \\
+        Abschluss 2 & 2.14 \pm 4.29 \\
+        Abschluss 3 & 2.14 \pm 0.85 \\
+        Abschluss 5 & 3.09 \pm 2.06 \\
+        Abschluss 8 & 3.09 \pm 2.06 \\
+        \bottomrule
+    \end{tabular}
+    \caption{Für jeden Abschluss errechnete Dielektrizitätskonstanten $\epsilon_r$.}
+    \label{tab:eps_rs}
+\end{table}
+
+\vspace{0.5cm}
+und mit dem gewichteten Mittelwert~\eqref{eq:gewichteter_mittelwert} und der gewichteten Standardabweichung~\eqref{eq:gewichtete_standardabweichung} ergibt sich der Mittelwert 
+\begin{align}
+    \bar{\epsilon_r} = \qty{2.4(0.6)} \; .
+\end{align}
 
 \textbf{Weitere Abschlüsse} \\
 
@@ -291,11 +374,11 @@ In \autoref{fig:mehrfach_oszi} ist der Signalverlauf bei der Reihenschaltung ein
     \label{fig:mehrfach_oszi}
 \end{figure}
 
-Das Eingangssignal liegt bei $U_0 \approx \qty{25.4}{\volt}$ und trifft dann nach ca. $\qty{20}{\nano\second}$ als an der Schnittstelle zwischen den beiden Kabeln reflektierte Welle mit einer Signalstärke von $U_1 \approx \qty{5}{\volt}$ auf das Oszilloskop. \\
-Das nicht direkt reflektierte Signal ist dann als Peak bei ca. $\qty{150}{\nano\second}$ mit einer Stärke von $U_2 \approx \qty{20.4}{\volt}$ zu sehen. $U_3 \approx \qty{0.8}{\volt}$ ist dann kurz danach die wiederkehrte Reflexion an der Grenze der Kabel. Die restlichen Peaks sind durch weitere Mehrfachreflexionen erklärbar. \\
+Das Eingangssignal liegt bei $U_0 \approx \qty{25.4}{\volt}$ und trifft dann nach ca. $\qty{20}{\nano\second}$ an der Schnittstelle zwischen den beiden Kabeln als reflektierte Welle mit einer Signalstärke von $U_1 \approx \qty{5}{\volt}$ auf das Oszilloskop. \\
+Das nicht direkt reflektierte Signal, welches dann also am Ende des $\qty{75}{\ohm}$-Kabels zurückreflektiert, ist dann als Peak bei ca. $\qty{150}{\nano\second}$ mit einer Stärke von $U_2 \approx \qty{20.4}{\volt}$ zu sehen. $U_3 \approx \qty{0.8}{\volt}$ ist dann kurz danach die zweite Reflexion an der Grenze der Kabel. Die restlichen Peaks sind durch weitere Mehrfachreflexionen erklärbar. \\
 Die Reflexionsfaktoren $\Gamma_0$ an der Schnittstelle der Kabel und $\Gamma_1$ am Ende vom $\qty{75}{\ohm}$-Kabel können über die Formeln 
 \begin{align}
-    \Gamma_0 &= \frac{U_1}{U_0} \approx 19.69 \% \intertext{und} \Gamma_1 &= \frac{U_2}{U_0(1-\Gamma_0^2)^2} \approx 86.92 \% .
+    \Gamma_0 &= \frac{U_1}{U_0} \approx 19,69 \% \intertext{und} \Gamma_1 &= \frac{U_2}{U_0(1-\Gamma_0^2)^2} \approx 86,92 \% .
 \end{align}
 
 Ein Impulsfahrplan für diesen Aufbau ist in \autoref{fig:fahrplan} zu sehen.
@@ -303,7 +386,7 @@ Ein Impulsfahrplan für diesen Aufbau ist in \autoref{fig:fahrplan} zu sehen.
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\textwidth]{content/pics/fahrplan.jpg}
-    \caption{Impulsfahrplan.}
+    \caption{Impulsfahrplan des Eingangssignals im aneinandergehängten $\qty{50}{\ohm}$ und $\qty{75}{\ohm}$-Kabel.}
     \label{fig:fahrplan}
 \end{figure}
 
