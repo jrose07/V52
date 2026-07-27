@@ -37,19 +37,31 @@ Die gemessenen Werte für den Leitungswiderstand $R$, die Induktivität $L$, die
 Mithilfe der aus \autoref{fig:formel_tabelle} bekannten Formel für den Querleitwertbelag $G$ für ein Koaxialkabel, kann dieser in Abhängigkeit der Frequenz errechnet werden. Für das verwendete Koaxialkabel gelten die Werte~\cite{Durchfuhrung}
 \begin{align*}
     d &= \qty{0.9}{\milli\meter} \\
-    D &= \qty{2.95}{\milli\meter} \\
-    \epsilon_r &= 2,25 \, .
+    D &= \qty{2.95}{\milli\meter} \, .
 \end{align*}
 
+Für die Berechnung des Querleitwertbelags wird außerdem nach \autoref{fig:formel_tabelle} der Imaginärteil der absoluten Permittivität des Dielektritikums (hier Polyethylen) benötigt. Dieser kann mittels 
+\begin{align}
+    \Im (\epsilon) = \epsilon_0 \Re(\epsilon_r) \tan (\delta)
+\end{align}
+mit der Dielektrizitätskonstante $\epsilon_0$, der relativen Permittivität $\epsilon_r$ und dem Verlustfaktor $\tan(\delta)$ berechnet werden. \\
+Für Polyethylen gelten die Werte 
+\begin{align}
+    \Re(\epsilon_r) &= \num{2.3}\text{\cite{weissgerberformelsammlung}} \\
+    \tan(\delta) &= \num{2.4e-4}\text{\cite{rct_polymer_glossar}}
+\end{align}
 Damit können $R, L, C$ und $G$ in Abhängigkeit der Frequenz dargestellt werden. Diese Darstellungen sind in \autoref{fig:RCLG} zu sehen.
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=\textwidth]{content/plots/RCL.pdf}
+    \includegraphics[width=0.8\textwidth]{content/plots/RCL.pdf}
     \caption{$R, L, C$ und $G$ in Abhängigkeit der Frequenz $\omega$.~\cite{matplotlib}}
     \label{fig:RCLG}
 \end{figure}
 
+
+
+\newpage
 \subsection{Dämpfungskonstanten und Längen der Kabel}
 
 Auch hier werden wieder Koaxialkabel des Typs RG-58C/U mit den Materialkonstanten
@@ -309,11 +321,11 @@ für die Dielektrizitätskonstante $\epsilon_r$ herleiten. Da hierbei für alle 
         \toprule 
         Abschlüsse & $\epsilon_r $\\
         \midrule 
-        Abschluss 1 & 2.31 \pm 0.89 \\
-        Abschluss 2 & 2.14 \pm 4.29 \\
-        Abschluss 3 & 2.14 \pm 0.85 \\
-        Abschluss 5 & 3.09 \pm 2.06 \\
-        Abschluss 8 & 3.09 \pm 2.06 \\
+        Abschluss 1 & 2,31 \pm 0.89 \\
+        Abschluss 2 & 2,14 \pm 4.29 \\
+        Abschluss 3 & 2,14 \pm 0.85 \\
+        Abschluss 5 & 3,09 \pm 2.06 \\
+        Abschluss 8 & 3,09 \pm 2.06 \\
         \bottomrule
     \end{tabular}
     \caption{Für jeden Abschluss errechnete Dielektrizitätskonstanten $\epsilon_r$.}
@@ -378,8 +390,9 @@ Das Eingangssignal liegt bei $U_0 \approx \qty{25.4}{\volt}$ und trifft dann nac
 Das nicht direkt reflektierte Signal, welches dann also am Ende des $\qty{75}{\ohm}$-Kabels zurückreflektiert, ist dann als Peak bei ca. $\qty{150}{\nano\second}$ mit einer Stärke von $U_2 \approx \qty{20.4}{\volt}$ zu sehen. $U_3 \approx \qty{0.8}{\volt}$ ist dann kurz danach die zweite Reflexion an der Grenze der Kabel. Die restlichen Peaks sind durch weitere Mehrfachreflexionen erklärbar. \\
 Die Reflexionsfaktoren $\Gamma_0$ an der Schnittstelle der Kabel und $\Gamma_1$ am Ende vom $\qty{75}{\ohm}$-Kabel können über die Formeln 
 \begin{align}
-    \Gamma_0 &= \frac{U_1}{U_0} \approx 19,69 \% \intertext{und} \Gamma_1 &= \frac{U_2}{U_0(1-\Gamma_0^2)^2} \approx 86,92 \% .
+    \Gamma_0 &= \frac{U_1}{U_0} \approx 19,69 \% \intertext{und} \Gamma_1 &= \frac{U_2}{U_0(1-\Gamma_0^2)^2} \approx 86,92 \% 
 \end{align}
+bestimmt werden.
 
 Ein Impulsfahrplan für diesen Aufbau ist in \autoref{fig:fahrplan} zu sehen.
 

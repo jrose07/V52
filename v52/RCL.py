@@ -28,28 +28,31 @@ Bei diesem Kabel: d=0.9mm, D=2.95mm, epsilon_r = 2.25 (Aus Anleitung)
 """
 d = 0.9 #mm
 D = 2.95 #mm
-epsilon = 2.25
+tan_delta = 2.4*1e-4
+epsilon_real = 2.3
+epsilon_im = epsilon_real * tan_delta
+sigma = f*1e3*2*np.pi * epsilon_im * const.epsilon_0 *1e9 #nS/m
 
-G = (2*np.pi)**2*f*epsilon / np.log(D/d)
+G = (2*np.pi)*sigma / np.log(D/d)
 
 #Plotte R,L,G,C in Abhängigkeit von omega
 
 fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2,2, figsize=(10, 8))
 
 ax1.errorbar(f, noms(R), yerr=stds(R), color="red", fmt=".")
-ax1.set(title="R(ω)", xlabel="f [kHz]", ylabel=r"$R \, [\Omega]$")
+ax1.set(title="R(f)", xlabel="f [kHz]", ylabel=r"$R \, [\Omega]$")
 ax1.grid()
 
 ax2.errorbar(f, noms(L), yerr=stds(L), color="green", fmt=".")
-ax2.set(title="L(ω)", xlabel="f [kHz]", ylabel=r"$L \, [\mu H]$")
+ax2.set(title="L(f)", xlabel="f [kHz]", ylabel=r"$L \, [\mu H]$")
 ax2.grid()
 
 ax3.plot(f, G, "b.")
-ax3.set(title="G(ω)", xlabel="f [kHz]", ylabel=r"$G \, [\frac{kS}{m}]$")
+ax3.set(title="G(f)", xlabel="f [kHz]", ylabel=r"$G \, [\frac{nS}{m}]$")
 ax3.grid()
 
 ax4.errorbar(f, noms(C), yerr=stds(C), color="k", fmt=".")
-ax4.set(title="C(ω)", xlabel="f [kHz]", ylabel=r"$C \, [nF]$")
+ax4.set(title="C(f)", xlabel="f [kHz]", ylabel=r"$C \, [nF]$")
 ax4.grid()
 
 fig.tight_layout()
